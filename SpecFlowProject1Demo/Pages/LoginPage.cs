@@ -27,7 +27,7 @@ namespace SpecFlowProject1Demo.Pages
             passwordTextBox.SendKeys(password);
 
             //Identify the login button
-            IWebElement loginButton = driver.FindElement(By.XPath("//*[@id=\"loginForm\"]/form/div[3]/input[1]"));
+            IWebElement loginButton = driver.FindElement(By.XPath("//input[@value='Log in']"));
 
             //click on the login button
             loginButton.Click();
