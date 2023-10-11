@@ -15,7 +15,15 @@ namespace SpecFlowProject1Demo.StepDefinitions
         HomePage homeObj = new HomePage();
         TMPage tMPageObj = new TMPage();
 
-        [Given(@"user logs in to the TurnUp Portal")]
+        [BeforeScenario]
+        public void InitialSteps()
+        {
+            driver = new ChromeDriver();
+            logObj.LoginActons(driver, "hari", "123123");
+            homeObj.GoToTMPage(driver);
+        }
+
+       /* [Given(@"user logs in to the TurnUp Portal")]
         public void GivenUserLogsInToTheTurnUpPortal()
         {
             driver = new ChromeDriver();
@@ -29,7 +37,7 @@ namespace SpecFlowProject1Demo.StepDefinitions
         {
             homeObj.GoToTMPage(driver);
 
-        }
+        }*/
         [When(@"user creates a new Time and Material record '([^']*)' '([^']*)' '([^']*)'")]
         public void WhenUserCreatesANewTimeAndMaterialRecord(string code, string description, string price)
         {
@@ -40,7 +48,7 @@ namespace SpecFlowProject1Demo.StepDefinitions
         public void ThenTurnUpPortalShouldSaveTheNewTimeAndMaterialRecordWith(string code)
         {
             tMPageObj.AssertCreateTMrecord(driver, code);
-            driver.Close();
+            //driver.Close();
         }
 
         [When(@"user edits an existing Time and Material record '([^']*)' '([^']*)'")]
@@ -53,7 +61,7 @@ namespace SpecFlowProject1Demo.StepDefinitions
         public void ThenTurnUpPortalShouldUpdateTimeAndMaterialRecord(string newCode)
         {
             tMPageObj.AssertEditTMrecord(driver, newCode);
-            driver.Close();
+            //driver.Close();
         }
 
         [When(@"user deletes an existing Time and Material record '([^']*)'")]
@@ -66,8 +74,13 @@ namespace SpecFlowProject1Demo.StepDefinitions
         public void ThenTheRecordShouldBeDeleted(string code)
         {
             tMPageObj.AssertDeleteTMrecord(driver, code);
-            driver.Close();
-        }        
+            //driver.Close();
+        }
 
+        [AfterScenario]
+        public void QuitDriver()
+        {
+            driver.Quit();
+        }
     }
 }
